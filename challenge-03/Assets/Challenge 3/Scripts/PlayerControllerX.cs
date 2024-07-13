@@ -7,10 +7,11 @@ public class PlayerControllerX : MonoBehaviour
     public bool gameOver;
     public float floatForce;
     private float gravityModifier = 1.5f;
+    public float yRangeMax = 15F;
+    public float yRangeMin = 2F;
     private Rigidbody playerRb;
     public ParticleSystem explosionParticle;
     public ParticleSystem fireworksParticle;
-
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
@@ -32,9 +33,20 @@ public class PlayerControllerX : MonoBehaviour
     void Update()
     {
         // While space is pressed and player is low enough, float up
-        if (Input.GetKeyDown(KeyCode.Space) && !gameOver)
+        if (Input.GetKeyDown(KeyCode.Space) && !gameOver && transform.position.y <= yRangeMax)
         {
             playerRb.AddForce(Vector3.up * floatForce, ForceMode.Impulse);
+
+            if(transform.position.y >= yRangeMax)
+            {
+                transform.Translate(0, yRangeMax - transform.position.y, 0);
+                playerRb.velocity = Vector3.zero;
+            }
+
+            if(transform.position.y <= yRangeMin){
+                transform.Translate(0, yRangeMin + transform.position.y, 0);
+                playerRb.velocity = Vector3.zero;
+            }
         }
     }
 
