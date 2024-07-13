@@ -26,9 +26,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && isOnGround){
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             playerAnim.SetTrigger("Jump_trig");
-            isOnGround = false;
-        } else if(Input.GetKeyUp(KeyCode.Space) && !isOnGround){
-            
+            isOnGround = false;  
         }
     }
 
